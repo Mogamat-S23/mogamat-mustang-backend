@@ -7,7 +7,7 @@ const cors = require('cors')
 const path = require('path')
 const router =express.Router()
 const bodyparser = require('body-parser')
-const port = parseInt(process.env.dbPORT) || 4000;
+const port = parseInt(process.env.PORT) || 4000;
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
