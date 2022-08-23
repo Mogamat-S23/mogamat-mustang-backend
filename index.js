@@ -15,6 +15,9 @@ app.use(express.json(),cors(),router,express.urlencoded({
 router.get('/', (req,res)=>{
     res.send(`This data is PEAK`)
 })
+router.get('/error', (req,res)=>{
+    res.sendFile('./views/404.html',{root : __dirname})
+})
 
 app.listen(port,(err)=>{
     if(err){
@@ -27,7 +30,9 @@ app.listen(port,(err)=>{
 router.get("/products",(req,res)=>{
     let products = `select * from products`
     db.query(products,(err,products)=>{
-        if(err) throw err
+        if(err){
+            res.redirect('/error')
+        }
         res.json({
             status : 200,
             mustangs : products
