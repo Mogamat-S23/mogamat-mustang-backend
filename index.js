@@ -14,7 +14,7 @@ app.use(express.json(),cors(),router,express.urlencoded({
 }))
 
 router.get('/', (req,res)=>{
-    res.send(`This data is PEAK`)
+    res.sendFile(path.join(__dirname,'./views/index.html'))
 })
 router.get('/error', (req,res)=>{
     res.sendFile(path.join(__dirname,'./views/404.html'))
