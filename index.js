@@ -4,6 +4,7 @@ const mysql = require('mysql')
 const express = require ('express')
 const app = express()
 const cors = require('cors')
+const path = require('path')
 const router =express.Router()
 const bodyparser = require('body-parser')
 const port = parseInt(process.env.PORT) || 4000
@@ -16,7 +17,7 @@ router.get('/', (req,res)=>{
     res.send(`This data is PEAK`)
 })
 router.get('/error', (req,res)=>{
-    res.sendFile('./views/404.html',{root : __dirname})
+    res.sendFile(path.join(__dirname,'./views/404.html'))
 })
 
 app.listen(port,(err)=>{
