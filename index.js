@@ -7,7 +7,7 @@ const cors = require('cors')
 const path = require('path')
 const router =express.Router()
 const bodyparser = require('body-parser')
-const port = parseInt(process.env.PORT) || 4000
+const port = parseInt(process.env.dbPORT) || 4000
 
 app.use(express.json(),cors(),router,express.urlencoded({
     extended : true
@@ -32,7 +32,8 @@ router.get("/products",(req,res)=>{
     let products = `select * from products`
     db.query(products,(err,products)=>{
         if(err){
-            res.redirect('/error')
+            res.redirect("/error")
+            console.log(err)
         }
         res.json({
             status : 200,
