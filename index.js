@@ -20,9 +20,11 @@ app.listen(port,(err)=>{
         console.log(`http://localhost:${port}`)
     }
 })
+
 router.get('/', (req,res)=>{
     res.sendFile(path.join(__dirname,'./views/index.html'))
 })
+
 router.get('/error', (req,res)=>{
     res.sendFile(path.join(__dirname,'./views/404.html'))
 })
