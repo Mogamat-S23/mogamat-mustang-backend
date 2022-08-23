@@ -7,22 +7,27 @@ const cors = require('cors')
 const path = require('path')
 const router =express.Router()
 const bodyparser = require('body-parser')
-const port = parseInt(process.env.dbPORT) || 4000
+const port = parseInt(process.env.dbPORT) || 4000;
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    next();
+});
 
 app.use(express.json(),cors(),router,express.urlencoded({
     extended : true
 }))
 
 app.listen(port,(err)=>{
-    if(err){
-        throw err 
-    }else{
-        console.log(`http://localhost:${port}`)
-    }
+    if(err) throw err 
+    console.log(`http://localhost:${port}`)
 })
 
 router.get('/', (req,res)=>{
-    res.sendFile(path.join(__dirname,'./views/index.html'))
+    res.sendFile(path.join(__dirname,"./views","/index.html"))
 })
 
 router.get('/error', (req,res)=>{
