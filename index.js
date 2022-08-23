@@ -6,6 +6,8 @@ const app = express()
 const cors = require('cors')
 const path = require('path')
 const router =express.Router()
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const bodyparser = require('body-parser')
 const port = parseInt(process.env.PORT) || 4000;
 
@@ -32,6 +34,10 @@ router.get('/', (req,res)=>{
 
 router.get('/error', (req,res)=>{
     res.sendFile(path.join(__dirname,'./views/404.html'))
+})
+
+router.get('/views/register.html', (req, res)=>{
+    res.sendFile(path.join(__dirname, './views/register.html'))
 })
 
 
@@ -163,6 +169,73 @@ router.delete('/products/:id',(req,res)=>{
         if(err){
             res.redirect('/error')
             console.log(err)
+        }
+    });
+});
+
+
+//all users
+
+router.get('/users',(req, res)=>{
+    const getAll = `SELECT * FROM user`
+
+    db.query(getAll,(err, results)=>{
+        if(err) throw err
+        res.json({
+            status: 200,
+            user: results
+        })
+    })
+})
+
+//single user
+
+router.get('/users/:id', (req, res)=>{
+    const getSingle = ` SELECT * FROM USER WHERE user_id = ${req.params.id}`
+
+    db.query(getSingle, (err, results)=>{
+        if(err) throw err
+        res.json({
+            status: 200,
+            user:results
+        })
+    })
+})
+
+
+///////////////////////////////////////////////
+
+//register
+
+router.post ('/register' , bodyparser.json(), (req, res)=>{
+    const body = req.body
+    const email = `SELECT * FROM user WHERE email = ?`
+
+    let emailReg = {
+        email: body.email
+    }
+
+    db.query(email, emailReg , async(err ,results)=>{
+        if (err) throw err
+        if (results.lenght > 0){
+            res.json({
+                status: 400,
+                msg: 'This email already exists'
+            })
+        }else {
+            let generateSalt = await bcrypt.genSalt()
+            body.password = await bcrypt.hash(body.password, generateSalt)
+
+            const add = `INSERT INTO user (firstName, surName, email, password)
+            VALUES(?,?,?,?)`
+
+            db.query(add, [body.firstName, body.surName, body.email, body.password], (err, results)=>{
+                if(err) throw err
+                res.json({
+                    status: 200,
+                    msg: 'Registration Successful'
+                })
+            })
         }
     })
 })
