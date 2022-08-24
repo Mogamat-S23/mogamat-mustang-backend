@@ -17,7 +17,7 @@ router.get("/users/:id/cart", bodyparser.json(),(req,res)=>{
         }
         res.json({
             status : 200,
-            mustangs : cart
+            mustangs : JSON.parse(cart[0].cart)
         })
     })
 })
@@ -53,6 +53,15 @@ router.post('/users/:id/cart', bodyparser.json(), (req, res) => {
                 })
             })
         })
+    });
+});
+
+//////////
+// delete from cart
+router.delete('/users/:id/cart', bodyparser.json(),(req, res)=>{
+    let cart = `select cart from user where user_id = ${req.params.id};`
+    db.query (cart, (err, results)=>{
+        if(err) throw err
     })
 })
 
