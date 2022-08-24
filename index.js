@@ -310,3 +310,28 @@ router.delete("/users/:id", (req, res) => {
 /////////////////
 // edit user
 
+router.put('/users/:id',bodyparser.json(),(req,res)=>{
+    let {
+        firstName,
+        surName,
+        email,
+        password
+    }=req.body;
+    let editUser=`update user SET 
+    firstName = ? ,
+    surName = ? ,
+    email= ? ,
+    password = ?
+    WHERE user_id = ${req.params.id};
+    `
+
+    db.query(editUser,[
+        firstName,
+        surName,
+        email,
+        password  
+    ],(err, results)=>{
+        if(err) throw err
+        res.end(JSON.stringify(results))
+    });
+});
