@@ -13,6 +13,7 @@ const productRoute = require('./routes/products')
 const usersRoute = require('./routes/user')
 const registerRoute = require('./routes/register')
 const loginRoute = require('./routes/login')
+const cartRoute = require('./routes/cart')
 const port = parseInt(process.env.PORT) || 4000;
 
 app.use((req, res, next) => {
@@ -31,6 +32,7 @@ app.use(productRoute)
 app.use(usersRoute)
 app.use(registerRoute)
 app.use(loginRoute)
+app.use(cartRoute)
 
 app.listen(port,(err)=>{
     if(err) throw err 

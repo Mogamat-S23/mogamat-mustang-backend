@@ -22,8 +22,8 @@ router.get('/users',(req, res)=>{
 
 //single user
 
-router.get('/users/:id', (req, res)=>{
-    const getSingle = ` SELECT * FROM USER WHERE user_id = ${req.params.id}`
+router.get("/users/:id", (req, res)=>{
+    const getSingle = ` SELECT * FROM user WHERE user_id = ${req.params.id}`
 
     db.query(getSingle, (err, results)=>{
         if(err) throw err
@@ -31,8 +31,8 @@ router.get('/users/:id', (req, res)=>{
             status: 200,
             user:results
         })
-    })
-})
+    });
+});
 
 
 
