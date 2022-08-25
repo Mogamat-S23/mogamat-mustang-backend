@@ -62,6 +62,7 @@ router.delete('/users/:id/cart', bodyparser.json(),(req, res)=>{
     let cart = `select cart from user where user_id = ${req.params.id};`
     db.query (cart, (err, results)=>{
         if(err) throw err
+        
     })
 })
 
