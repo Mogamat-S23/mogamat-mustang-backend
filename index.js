@@ -346,3 +346,5 @@ router.get('/views/register.html', (req, res)=>{
 //         res.end(JSON.stringify(results))
 //     });
 // });
+
+app.get("*", (req, res) => res.status(404).redirect("/error"))
