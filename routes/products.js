@@ -125,21 +125,22 @@ router.put('/products/:id',bodyparser.json(),(req,res)=>{
         gear
     ],(err, results)=>{
         if(err) throw err
-        res.end(JSON.stringify(results))
+        res.json({
+            results,
+            msg:"item edited"
+        })
     });
 });
 
 //delete products
 
 router.delete('/products/:id',(req,res)=>{
-    let deleteProduct = `DELETE FROM user WHERE user_id = ${req.params.id};
-    ALTER TABLE users AUTO_INCREMENT = 1;`;
-   
+    let deleteProduct = `DELETE FROM user WHERE user_id = ${req.params.id};`;   
     db.query(deleteProduct, (err)=>{
-        if(err){
-            res.redirect('/error')
-            console.log(err)
-        }
+        if(err) throw err;
+        res.json({
+            msg : "item deleted"
+        })
     });
 });
 
