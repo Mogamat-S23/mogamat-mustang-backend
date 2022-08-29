@@ -6,7 +6,7 @@ const router =express.Router()
 const bodyparser = require('body-parser')
 
 // login
-router.get('/login', bodyparser.json(),(req,res)=>{
+router.post('/login', bodyparser.json(),(req,res)=>{
     let {
        email,
        password
