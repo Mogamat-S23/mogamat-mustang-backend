@@ -135,7 +135,7 @@ router.put('/products/:id',bodyparser.json(),(req,res)=>{
 //delete products
 
 router.delete('/products/:id',(req,res)=>{
-    let deleteProduct = `DELETE FROM user WHERE user_id = ${req.params.id};`;   
+    let deleteProduct = `DELETE FROM products WHERE product_id = ${req.params.id};`;   
     db.query(deleteProduct, (err)=>{
         if(err) throw err;
         res.json({
