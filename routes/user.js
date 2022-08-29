@@ -4,6 +4,8 @@ const mysql = require('mysql')
 const express = require ('express')
 const router =express.Router()
 const bodyparser = require('body-parser')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 
 //all users
@@ -127,8 +129,8 @@ router.post('/login', bodyparser.json(),(req,res)=>{
        password
     } = req.body
 
-    let userLogin = `SELECT * FROM user WHERE email = ?`
-    db.query(userLogin,email,(err,results)=>{
+    let userLogin = `SELECT * FROM user WHERE email = ?;`
+    db.query(userLogin, email,(err,results)=>{
        if(err) throw err
        if(results[0].email == 0){
            res.json({
@@ -154,7 +156,7 @@ router.post('/login', bodyparser.json(),(req,res)=>{
            if(err) throw err 
            res.json({
                status: 200,
-               token: token
+               msg : token
            })
           }) 
        }
