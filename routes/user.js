@@ -62,29 +62,38 @@ router.delete("/users/:id", (req, res) => {
 /////////////////
 // edit user
 
-router.put('/users/:id', bodyparser.json(), (req, res) => {
+router.put('/users/:id' , bodyparser.json(), async (req, res) => {
     let {
         firstName,
         surName,
         email,
         password
     } = req.body;
+    // let editUser = `update user SET 
+    // ?
+    // WHERE user_id = ${req.params.id};`
+
     let editUser = `update user SET 
     firstName = ? ,
     surName = ? ,
     email= ? ,
     password = ?
-    WHERE user_id = ${req.params.id};
-    `
+    WHERE user_id = ${req.params.id};`
+const payload = {
+    password
+}
 
+    // password = await bcrypt.hash(password, 10)
     db.query(editUser, [
         firstName,
         surName,
         email,
-        password
-    ], (err, results) => {
+        // password
+    ], async (err, results) => {
         if (err) throw err
-        res.end(JSON.stringify(results))
+        res.json({
+            results : JSON.stringify(results)
+        })
     });
 });
 
@@ -136,6 +145,7 @@ router.post("/login", bodyparser.json(), async (req, res) => {
             let match = await bcrypt.compare(password, results[0].password)
             if (match === true) {
                 let user = {
+                    id : results[0].user_id,
                     firstName: results[0].firstName,
                     surName: results[0].surName,
                     email: results[0].email,
@@ -146,6 +156,7 @@ router.post("/login", bodyparser.json(), async (req, res) => {
                     if (err) throw err
                     res.json({
                         status: 200,
+                        results: user,
                         msg: "Login Successful",
                         token
                     })
