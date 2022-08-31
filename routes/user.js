@@ -44,7 +44,7 @@ router.get("/users/:id", (req, res) => {
 
 router.delete("/users/:id", (req, res) => {
     try {
-        const deleteUser = `DELETE FROM user WHERE user_id = ${req.params.id};ALTER TABLE users AUTO_INCREMENT = 1;`
+        const deleteUser = `DELETE FROM user WHERE user_id = ${req.params.id};  `
 
         db.query(deleteUser, (err, results) => {
             if (err) throw err;
@@ -67,7 +67,6 @@ router.put('/users/:id' , bodyparser.json(), async (req, res) => {
         firstName,
         surName,
         email,
-        password
     } = req.body;
     // let editUser = `update user SET 
     // ?
@@ -77,7 +76,6 @@ router.put('/users/:id' , bodyparser.json(), async (req, res) => {
     firstName = ? ,
     surName = ? ,
     email= ? ,
-    password = ?
     WHERE user_id = ${req.params.id};`
 const payload = {
     password
