@@ -75,11 +75,11 @@ router.put('/users/:id' , bodyparser.json(), async (req, res) => {
     let editUser = `update user SET 
     firstName = ? ,
     surName = ? ,
-    email= ? ,
+    email= ? 
     WHERE user_id = ${req.params.id};`
-const payload = {
-    password
-}
+// const payload = {
+//     password
+// }
 
     // password = await bcrypt.hash(password, 10)
     db.query(editUser, [
