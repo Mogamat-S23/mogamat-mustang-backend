@@ -31,6 +31,7 @@ router.get("/users/:id", (req, res) => {
         if (err) throw err
         res.json({
             status: 200,
+            msg : `Hello ${results[0].firstName}`,
             user: results
         })
     });
