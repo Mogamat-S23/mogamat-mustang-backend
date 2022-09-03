@@ -68,6 +68,7 @@ router.put('/users/:id' , bodyparser.json(), async (req, res) => {
         firstName,
         surName,
         email,
+        userProfile,
     } = req.body;
     // let editUser = `update user SET 
     // ?
@@ -76,7 +77,8 @@ router.put('/users/:id' , bodyparser.json(), async (req, res) => {
     let editUser = `update user SET 
     firstName = ? ,
     surName = ? ,
-    email= ? 
+    email= ? ,
+    userProfile = ?
     WHERE user_id = ${req.params.id};`
 // const payload = {
 //     password
@@ -87,6 +89,7 @@ router.put('/users/:id' , bodyparser.json(), async (req, res) => {
         firstName,
         surName,
         email,
+        userProfile,
         // password
     ], async (err, results) => {
         if (err) throw err
@@ -148,6 +151,7 @@ router.post("/login", bodyparser.json(), async (req, res) => {
                     firstName: results[0].firstName,
                     surName: results[0].surName,
                     email: results[0].email,
+                    userProfile: results[0].userProfile,
                     password: results[0].password,
                     userRole: results[0].userRole,
                 }
