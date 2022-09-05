@@ -71,6 +71,9 @@ router.post("/products", bodyparser.json(),(req,res)=>{
         gear
     ],(err, newCar)=>{
         if(err) throw err
+        res.json({
+            results:newCar
+        })
         console.log(newCar.affectedRows)
     });
 });
