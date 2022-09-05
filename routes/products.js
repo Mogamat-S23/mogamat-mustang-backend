@@ -74,7 +74,7 @@ router.post("/products", bodyparser.json(),(req,res)=>{
         res.json({
             results:newCar
         })
-        console.log(newCar.affectedRows)
+        // console.log(newCar.affectedRows)
     });
 });
 

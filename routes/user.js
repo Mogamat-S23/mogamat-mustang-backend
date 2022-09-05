@@ -132,7 +132,7 @@ router.post('/register', bodyparser.json(), (req, res) => {
         }
     });
 });
-
+//login
 router.post("/login", bodyparser.json(), async (req, res) => {
     const {
         email,
